@@ -71,9 +71,15 @@ function pizzaManager(arr) {
 		resultArr.push(result);
 	});
 
-	resultArr.forEach(function(item) {
-		console.log(item);
-	})
+	let mapped = resultArr.map(function(item, i, arr) {
+		return {
+			'Pizza name': item.name,
+			'Price': item.price,
+			'Type of pizza': item.type
+		};
+	});
+
+	// console.log(mapped);
 
 	return resultArr;
 }
@@ -91,3 +97,5 @@ let arraysPizza1 = [['Pizza order number 2', 10, [{name: 'cheese', price: 2}]], 
 const getArraysPizza = pizzaManager(arraysPizza1);
 console.log(arraysPizza1)
 console.log(`Price of the first pizza: ${getArraysPizza[0].getPrice()}`);
+
+document.getElementById('wrapper').innerHTML = getArraysPizza.join(' ');
