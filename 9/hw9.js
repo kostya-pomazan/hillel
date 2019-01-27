@@ -43,7 +43,3 @@ let myCoctail = new Coctail({
 
 console.log(myCoctail.getPrice())
 myCoctail.getPrice()
-
-
-
-// смысл в том, чтобы объект coctail имел свои поля а метод getPrice брался из прототипа
