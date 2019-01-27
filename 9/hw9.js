@@ -8,34 +8,42 @@
 // вернуть все безаклкогольные
 // вернуть все алкогольные
 
-let coctail = {
-    name: 'Red',
-    ingridients: [{
-            name: 'Gin',
-            price: 40
-        },
-        {
-            name: 'Strawberry',
-            price: 20
-        }
-    ],
-    isAlcohol: true,
-    type: 'Long Drink'
+//можно сделать через конструктор
+
+function Coctail(name, price, isAlcohol, type) {
+    this.name = name;
+    this.price = price;
+    // this.ingridients = [ingridients]
+    this.isAlcohol = isAlcohol;
+    this.type = type;
+}
+Coctail.prototype = {
+    getPrice: getCoctailPrice
 }
 
-let utils = Object.create(coctail);
-
-utils.getPrice = function () {
-    let coctailPrice = this.ingridients.reduce(function (count, curr) {
+function getCoctailPrice() {
+    let coctailPrice = this.reduce(function (count, curr) {
         console.log(count + curr.price)
         return count + curr.price;
     }, 0);
     return coctailPrice;
 }
 
-console.log(coctail.isPrototypeOf(utils))
+let myCoctail = new Coctail({
+    name: 'test',
+    price: 20,
+    // ingridients: [{
+    //     name: 'test',
+    //     price: 20
+    // }],
+    isAlcohol: true,
+    type: 'Long'
+});
 
-utils.isAlcohol
-console.log(utils.isAlcohol)
 
-coctail.getPrice()
+console.log(myCoctail.getPrice())
+myCoctail.getPrice()
+
+
+
+// смысл в том, чтобы объект coctail имел свои поля а метод getPrice брался из прототипа
