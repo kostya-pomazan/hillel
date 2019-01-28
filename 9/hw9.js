@@ -10,10 +10,14 @@
 
 //можно сделать через конструктор
 
-function Coctail(name, price, isAlcohol, type) {
+function Coctail(name, ingridients, isAlcohol, type) {
+    // const Ingridient = {
+    //     name: name,
+    //     price: price
+    // }
+
     this.name = name;
-    this.price = price;
-    // this.ingridients = [ingridients]
+    this.ingridients = [Ingridient]
     this.isAlcohol = isAlcohol;
     this.type = type;
 }
@@ -22,24 +26,23 @@ Coctail.prototype = {
 }
 
 function getCoctailPrice() {
-    let coctailPrice = this.reduce(function (count, curr) {
+    let coctailPrice = this.ingridients.reduce(function (count, curr) {
         console.log(count + curr.price)
         return count + curr.price;
     }, 0);
-    return coctailPrice;
+   return coctailPrice;
 }
+
+// console.log(Coctail.isPrototypeOf(getPrice))
 
 let myCoctail = new Coctail({
     name: 'test',
-    price: 20,
-    // ingridients: [{
-    //     name: 'test',
-    //     price: 20
-    // }],
+    ingridients: [{
+        name: 'test',
+        price: 20
+    }],
     isAlcohol: true,
     type: 'Long'
 });
 
-
-console.log(myCoctail.getPrice())
 myCoctail.getPrice()
