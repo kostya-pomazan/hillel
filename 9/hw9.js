@@ -95,5 +95,6 @@ let tropical = Coctails.prototype.add('Tropical', [{
 
 Coctails.prototype.remove('Godfather');
 Coctails.prototype.show();
+Coctail.prototype.getPrice();
 let resultIsAlcohol = Coctails.prototype.isAlcohol(false);
 console.log(resultIsAlcohol)
