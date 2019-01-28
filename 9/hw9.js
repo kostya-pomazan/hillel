@@ -20,7 +20,7 @@ Coctail.prototype = {
 }
 
 function getCoctailPrice() {
-    let coctailPrice = this.ingridients.reduce(function (count, curr) {
+    let coctailPrice = this.prototype.ingridients.reduce(function (count, curr) {
         console.log(count + curr.price)
         return count + curr.price;
     }, 0);
