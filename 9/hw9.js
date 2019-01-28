@@ -8,19 +8,13 @@
 // вернуть все безаклкогольные
 // вернуть все алкогольные
 
-//можно сделать через конструктор
-
 function Coctail(name, ingridients, isAlcohol, type) {
-    // const Ingridient = {
-    //     name: name,
-    //     price: price
-    // }
-
     this.name = name;
-    this.ingridients = [Ingridient]
+    this.ingridients = ingridients
     this.isAlcohol = isAlcohol;
     this.type = type;
 }
+
 Coctail.prototype = {
     getPrice: getCoctailPrice
 }
@@ -30,19 +24,76 @@ function getCoctailPrice() {
         console.log(count + curr.price)
         return count + curr.price;
     }, 0);
-   return coctailPrice;
+    console.log(coctailPrice)
+    return coctailPrice;
 }
 
-// console.log(Coctail.isPrototypeOf(getPrice))
+// console.log(cocktailsUtils.isPrototypeOf(coctails))
 
-let myCoctail = new Coctail({
-    name: 'test',
-    ingridients: [{
-        name: 'test',
-        price: 20
-    }],
-    isAlcohol: true,
-    type: 'Long'
-});
+let Coctails = {
+    coctailsArr: []
+}
 
-myCoctail.getPrice()
+Coctails.prototype = {
+    add: function (name, ingridients, isAlcohol, type) {
+        Coctails.coctailsArr.push(new Coctail(name, ingridients, isAlcohol, type));
+    },
+    remove: function(value) {
+        let res = Coctails.coctailsArr.filter(function(item) {
+            return item.name !== value;
+        });
+        Coctails.coctailsArr = res;
+    },
+    show: function () {
+        Coctails.coctailsArr.forEach(function(item) {
+            console.log(item)
+            return item;
+        });
+    },
+    isAlcohol: function (value) {
+        let res = Coctails.coctailsArr.filter(function (item) {
+            if (item.isAlcohol === value) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        res.forEach(function (item) {
+            return item;
+        });
+        return res;
+    }
+}
+
+Coctails.prototype.add('RedHoup', [{
+    name: 'Jin',
+    price: 50
+}, {
+    name: 'Strawberry',
+    price: 20
+}], true, 'Long');
+
+Coctails.prototype.add('Godfather', [{
+    name: 'Whiskey',
+    price: 60
+}, {
+    name: 'Liquor',
+    price: 15
+}], true, 'Short');
+
+let tropical = Coctails.prototype.add('Tropical', [{
+    name: 'Milc',
+    price: 10
+}, {
+    name: 'Bananas',
+    price: 20
+},
+{
+     name: 'Orange juce',
+     price: 8
+}], false, 'Long');
+
+Coctails.prototype.remove('Godfather');
+Coctails.prototype.show();
+let resultIsAlcohol = Coctails.prototype.isAlcohol(false);
+console.log(resultIsAlcohol)
