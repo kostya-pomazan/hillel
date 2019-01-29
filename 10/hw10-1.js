@@ -1,5 +1,3 @@
-// Написать класс
-// Необходимо переписать данный функционал использую синтаксис классов
 // https: //developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Classes
 
 class Ingridients {
