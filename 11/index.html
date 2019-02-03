@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.hidden {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="content">
+		<div class="input-holder">
+			<input type="text" id="filter-coctails" />
+		</div>
+		<div class="input-holder">
+			<input type="checkbox" name="alcohol" id="is-alcohol-checkbox">
+			<label for="is-alcohol-checkbox">Alcohol coctails</label>
+		</div>
+		<div class="input-holder">
+			<input type="checkbox" name="not-alcohol" id="not-alcohol-checkbox">
+			<label for="not-alcohol-checkbox">Not alcohol coctails</label>
+		</div>
+		<div class="input-holder">
+			<input type="checkbox" name="long" id="long-coctail-checkbox">
+			<label for="long-coctail-checkbox">Long coctails</label>
+		</div>
+		<div class="input-holder">
+			<input type="checkbox" name="shot" id="shot-coctail-checkbox">
+			<label for="shot-coctail-checkbox">Shot coctails</label>
+		</div>
+		<div id="buttons">
+			<button class="button" id="show-button" type="button">Render</button>
+		</div>
+		<div id="cocktail-list"></div>
+	</div>
+	<script src="lesson11.js"></script>
+</body>
+</html>
