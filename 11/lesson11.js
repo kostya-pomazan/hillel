@@ -23,7 +23,7 @@ class Cocktail {
 class CocktailsList {
 	constructor() {
 		this.list = [];
-		// this.filters = [];
+		this.filtered = [];
 	}
 
 	add(cocktail) {
@@ -54,8 +54,6 @@ class CocktailsList {
 	}
 
 	renderFilteredAlcohol(value) {
-
-		
 		let list = this.list.filter(function (item) {
 			if (value === true) {
 				return item.isAlcohol === true;
@@ -63,7 +61,20 @@ class CocktailsList {
 				return item.isAlcohol === false;
 			}
 		});
-		return list;
+		this.filtered = list.slice();
+		return this.renderForAlcohol(list);
+	}
+
+	renderForAlcohol(filtered) {
+		let cocktails = filtered || this.filtered
+		let fragment = document.createDocumentFragment();
+		cocktails.forEach(function (item) {
+			let cocktailItem = document.createElement('div');
+			cocktailItem.innerText = item.name;
+			cocktailItem.className = 'cocktail';
+			fragment.appendChild(cocktailItem);
+		});
+		return fragment;
 	}
 
 	renderFilteredType(value) {
@@ -114,42 +125,40 @@ const showList = function () {
 showButton.addEventListener('click', showList);
 
 filterInput.addEventListener('input', function (event) {
+	if (checkboxAlcohol.checked) {
+		// debugger;
+		listElement.innerHTML = '';
+		listElement.appendChild(list.renderFilteredAlcohol(true));
+		// listElement.appendChild(list.renderFilteredAlcohol(this.value))
+	}
 	listElement.innerHTML = '';
 	listElement.appendChild(list.renderFiltered(this.value))
 });
 
 checkboxAlcohol.addEventListener('change', function () {
-	listElement.innerHTML = '';
-	if (this.checked) {
-		let result = list.renderFilteredAlcohol(true);
-		listElement.appendChild(list.render(result));
-	}
+	listElement.appendChild(list.renderFilteredAlcohol(true));
 });
 
 checkboxNotAlcohol.addEventListener('change', function () {
-	listElement.innerHTML = '';
-	if (this.checked) {
-		let result = list.renderFilteredAlcohol(false);
-		listElement.appendChild(list.render(result));
-	}
+	listElement.appendChild(list.renderFilteredAlcohol(false));
 });
 
-checkboxLongCoctail.addEventListener('change', function () {
-	let type = this.name;
+// checkboxLongCoctail.addEventListener('change', function () {
+// 	let type = this.name;
 	
-	listElement.innerHTML = '';
-	if (this.checked) {
-		let result = list.renderFilteredType(type);
-		listElement.appendChild(list.render(result));
-	}
-});
+// 	listElement.innerHTML = '';
+// 	if (this.checked) {
+// 		let result = list.renderFilteredType(type);
+// 		listElement.appendChild(list.render(result));
+// 	}
+// });
 
-checkboxShotCoctail.addEventListener('change', function () {
-	let type = this.name;
+// checkboxShotCoctail.addEventListener('change', function () {
+// 	let type = this.name;
 
-	listElement.innerHTML = '';
-	if (this.checked) {
-		let result = list.renderFilteredType(type);
-		listElement.appendChild(list.render(result));
-	}
-});
+// 	listElement.innerHTML = '';
+// 	if (this.checked) {
+// 		let result = list.renderFilteredType(type);
+// 		listElement.appendChild(list.render(result));
+// 	}
+// });
