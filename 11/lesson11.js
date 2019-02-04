@@ -22,7 +22,8 @@ class Cocktail {
 
 class CocktailsList {
 	constructor() {
-		this.list = []
+		this.list = [];
+		// this.filters = [];
 	}
 
 	add(cocktail) {
@@ -36,7 +37,7 @@ class CocktailsList {
 	renderFiltered(name) {
 		let list = this.list.filter(function (item) {
 			return item.name.indexOf(name) === 0;
-		})
+		});
 		return this.render(list);
 	}
 
@@ -53,6 +54,8 @@ class CocktailsList {
 	}
 
 	renderFilteredAlcohol(value) {
+
+		
 		let list = this.list.filter(function (item) {
 			if (value === true) {
 				return item.isAlcohol === true;
@@ -104,10 +107,10 @@ list.add(new Cocktail('b52', [{
 }], true, 'shot'));
 
 const showList = function () {
-
 	listElement.innerHTML = '';
 	listElement.appendChild(list.render())
 }
+
 showButton.addEventListener('click', showList);
 
 filterInput.addEventListener('input', function (event) {
@@ -138,9 +141,6 @@ checkboxLongCoctail.addEventListener('change', function () {
 	if (this.checked) {
 		let result = list.renderFilteredType(type);
 		listElement.appendChild(list.render(result));
-	}
-	if (this.checked === false) {
-		listElement.innerHTML = '';
 	}
 });
 
