@@ -24,12 +24,26 @@
     .cocktail{
         min-width: 120px;
     }
-    .order .row{
-        display: flex;
-        margin: 0 -10px;
+    .order{
+      max-width: 600px;
+      border: 1px solid #000;
     }
-    .order .col{
-        padding: 0 10px;
+    .order .row:first-child .col{
+      border:1px solid #000;
+      border-width: 0 1px 1px 0;
+      padding: 0 10px;
+    }
+    .order .row:first-child .col:last-child{border-right: 0;}
+    .order .row{
+      display: grid;
+      grid-template-columns:1fr 1fr 1fr 1fr;
+    }
+    .order .col div{
+      border:1px solid #000;
+      border-width: 0 1px 1px 1px;
+      margin-left: -1px;
+      margin-bottom: -1px;
+      padding: 0 10px;
     }
     .btn-order{
       display: inline-block;
