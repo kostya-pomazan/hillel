@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .setting {
+        display: inline-block;
+    }
+    #cocktail-list{
+        padding: 10px 0;
+    }
+    .cocktail-item{
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 5px;
+    }
+    .cocktail-item button{
+        margin-left: 20px;
+    }
+    .cocktail{
+        min-width: 120px;
+    }
+    .order .row{
+        display: flex;
+        margin: 0 -10px;
+    }
+    .order .col{
+        padding: 0 10px;
+    }
+    .btn-order{
+      display: inline-block;
+      vertical-align: top;
+      min-width: 60px;
+      height: 30px;
+      border:0;
+      background: #000;
+      color: #fff;
+      cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div id="buttons">
+        <button class="button" type="button">Render</button>
+        <button class="button" type="button">Render1</button>
+        <button class="button" type="button">Render2</button>
+    </div>
+    <div id="content">
+
+        <div class="setting"><input placeholder="filter cocktails" type="text" id="filter-coctails" name="cocktailValue" /></div>
+
+        <div id="filters" class="setting">
+            <label for="is-alcohol">Alcohol</label><input checked type="checkbox" name="isAlcohol" id="is-alcohol" />
+            <label for="is-long">Long</label><input checked type="checkbox" name="isLong" id="is-long" />
+        </div>
+        <div id="cocktail-list"></div>
+    </div>
+    <aside id="sidebar">
+        <div class="order">
+            <div class="row">
+                <div class="col">Name</div>
+                <div class="col">Quantity</div>
+                <div class="col">Price</div>
+                <div class="col">Total Price</div>
+            </div>
+            <div class="row">
+                <div id="name" class="col"></div>
+                <div id="quantity" class="col"></div>
+                <div id="price" class="col"></div>
+                <div id="total" class="col"></div>
+            </div>
+        </div>
+    </aside>
+
+    <script src="homework12.js"></script>
+</body>
+
+</html>
