@@ -34,12 +34,15 @@ class CocktailsList {
   constructor() {
     this.list = []; // model 
     this.filteredList = []; // view model 
-    this.orderedList = [];
 
     this.filters = { // view model
       isAlcohol: true,
       isLong: true,
       cocktailValue: ''
+    }
+
+    this.ordered = {
+      orderedList: []
     }
   }
 
@@ -62,7 +65,7 @@ class CocktailsList {
         (this.filters.cocktailValue === '' || item.name.indexOf(this.filters.cocktailValue) === 0)
     });
   }
-  
+
   // getOrderedCoctails() {
   //   this.orderedList = this.li
   // }
@@ -82,28 +85,34 @@ class CocktailsList {
       coctailName.className = 'cocktail';
 
       cocktailPrice.innerText = item.price + '$';
-      
+
       button.innerText = 'Buy';
       button.className = 'btn-order';
-      
+
       cocktailItem.className = 'cocktail-item';
       cocktailItem.append(coctailName);
       cocktailItem.append(cocktailPrice);
       cocktailItem.append(button);
-      
+
       fragment.appendChild(cocktailItem);
     })
     return fragment;
   }
-  
+
   getOrderedCoctails(coctail) {
-    this.orderedList = this.filteredList.filter(function(item){
-      if(item.name === coctail) {
+    let res = this.filteredList.filter(function (item) {
+      if (item.name === coctail) {
         item.isOrdered++;
         console.log(item.isOrdered)
         return item;
       }
     });
+    
+    this.ordered.orderedList.push(res);
+    let arr = this.ordered.orderedList;
+    console.log(arr)
+    
+    debugger
   }
 
   renderOrderedCoctails() {
@@ -114,20 +123,25 @@ class CocktailsList {
     let coctailQuantity = document.createElement('div');
     let hr = document.createElement('hr');
 
-    this.orderedList.forEach(function(item) {
-      let getTotal = item.price * item.isOrdered;
+    this.ordered.orderedList.forEach(function (item) {
+      item.forEach(function(subItem) {
+        let getTotal = subItem.price * subItem.isOrdered;
+        debugger
+        coctailName.innerText = subItem.name;
+        coctailPrice.innerText = subItem.price;
+        coctailQuantity.innerText = subItem.isOrdered;
+        coctailTotalPrice.innerText = getTotal;
 
-      coctailName.innerText = item.name;
-      coctailPrice.innerText = item.price;
-      coctailQuantity.innerText = item.isOrdered;
-      coctailTotalPrice.innerText = getTotal;
-
-      nameColumn.appendChild(coctailName);
-      priceColumn.appendChild(coctailPrice);
-      quantityColumn.appendChild(coctailQuantity);
-      totalColumn.appendChild(coctailTotalPrice);
-      // fragmentNameColumn.appendChild(coctailName);
+        nameColumn.appendChild(coctailName);
+        priceColumn.appendChild(coctailPrice);
+        quantityColumn.appendChild(coctailQuantity);
+        totalColumn.appendChild(coctailTotalPrice);
+        
+        // fragmentNameColumn.appendChild(coctailName);
+      });
+      debugger
     });
+    console.log(this.ordered.orderedList)
 
     // return fragmentNameColumn;
   }
@@ -200,8 +214,8 @@ isLongFilter.addEventListener('change', filterHandler);
 filterInput.addEventListener('input', filterHandler);
 
 let container = document.querySelector('#cocktail-list');
- 
-container.onclick = function(e) {
+
+container.onclick = function (e) {
   if (!e.target.classList.contains('btn-order')) return;
 
   let parent = e.target.parentElement;
