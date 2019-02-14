@@ -34,7 +34,8 @@
       padding: 0 10px;
     }
     .order .row:first-child .col:last-child{border-right: 0;}
-    .order .row{
+    .order .row,
+    .table-row{
       display: grid;
       grid-template-columns:1fr 1fr 1fr 1fr;
     }
@@ -83,12 +84,7 @@
                 <div class="col">Price</div>
                 <div class="col">Total Price</div>
             </div>
-            <div class="row">
-                <div id="name" class="col"></div>
-                <div id="quantity" class="col"></div>
-                <div id="price" class="col"></div>
-                <div id="total" class="col"></div>
-            </div>
+            <div id="ordered-row" class="result-row"></div>
         </div>
     </aside>
 

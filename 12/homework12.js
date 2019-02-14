@@ -4,10 +4,7 @@ const listElement = document.getElementById('cocktail-list');
 const isAlcoholFilter = document.querySelector('#is-alcohol');
 const isLongFilter = document.querySelector('#is-long');
 const buttons = document.querySelectorAll('.btn-order');
-const nameColumn = document.querySelector('#name');
-const priceColumn = document.querySelector('#price');
-const totalColumn = document.querySelector('#total');
-const quantityColumn = document.querySelector('#quantity');
+const orderedRow = document.querySelector('#ordered-row');
 
 class Cocktail {
   constructor(name, ingredients, isAlcohol, type) {
@@ -100,50 +97,77 @@ class CocktailsList {
   }
 
   getOrderedCoctails(coctail) {
-    let res = this.filteredList.filter(function (item) {
-      if (item.name === coctail) {
-        item.isOrdered++;
-        console.log(item.isOrdered)
-        return item;
-      }
-    });
-    
-    this.ordered.orderedList.push(res);
-    let arr = this.ordered.orderedList;
-    console.log(arr)
-    
-    debugger
-  }
-
-  renderOrderedCoctails() {
-    // let fragmentNameColumn = document.createDocumentFragment();
+    let fragment = document.createDocumentFragment();
+    let newTableRow = document.createElement('div');
     let coctailName = document.createElement('div');
     let coctailPrice = document.createElement('div');
     let coctailTotalPrice = document.createElement('div');
     let coctailQuantity = document.createElement('div');
-    let hr = document.createElement('hr');
 
-    this.ordered.orderedList.forEach(function (item) {
-      item.forEach(function(subItem) {
-        let getTotal = subItem.price * subItem.isOrdered;
-        debugger
-        coctailName.innerText = subItem.name;
-        coctailPrice.innerText = subItem.price;
-        coctailQuantity.innerText = subItem.isOrdered;
+    let resultCoctail = this.filteredList.find(function (item) {
+      // debugger;
+      return item.name === coctail;
+    });
+
+    if (this.ordered.orderedList.find((item) => item.name === resultCoctail.name)) {
+      
+      // update
+      this.ordered.orderedList.forEach(function (item) {
+        // orderedRow.innerHTML = '';
+        newTableRow.className = 'table-row';
+        resultCoctail.isOrdered++;
+
+        let getTotal = item.price * item.isOrdered;
+        coctailName.innerText = item.name;
+        coctailPrice.innerText = item.price;
+        coctailQuantity.innerText = item.isOrdered;
         coctailTotalPrice.innerText = getTotal;
 
-        nameColumn.appendChild(coctailName);
-        priceColumn.appendChild(coctailPrice);
-        quantityColumn.appendChild(coctailQuantity);
-        totalColumn.appendChild(coctailTotalPrice);
+        fragment.append(coctailName);
+        fragment.append(coctailQuantity);
+        fragment.append(coctailPrice);
+        fragment.append(coctailTotalPrice);
+        // debugger
         
-        // fragmentNameColumn.appendChild(coctailName);
       });
-      debugger
-    });
-    console.log(this.ordered.orderedList)
+      newTableRow.appendChild(fragment);
+      orderedRow.appendChild(newTableRow);
 
-    // return fragmentNameColumn;
+    } else {
+      this.ordered.orderedList.push(resultCoctail);
+      resultCoctail.isOrdered++;
+      orderedRow.appendChild(list.renderOrderedCoctails())
+      // debugger;
+    }
+  }
+
+  renderOrderedCoctails() {
+    let fragment = document.createDocumentFragment();
+    let newTableRow = document.createElement('div');
+    let coctailName = document.createElement('div');
+    let coctailPrice = document.createElement('div');
+    let coctailTotalPrice = document.createElement('div');
+    let coctailQuantity = document.createElement('div');
+    
+    this.ordered.orderedList.forEach(function (item) {
+      newTableRow.className = 'table-row';
+
+      let getTotal = item.price * item.isOrdered;
+      // debugger
+      coctailName.innerText = item.name;
+      coctailPrice.innerText = item.price;
+      coctailQuantity.innerText = item.isOrdered;
+      coctailTotalPrice.innerText = getTotal;
+
+      fragment.appendChild(coctailName);
+      fragment.appendChild(coctailQuantity);
+      fragment.appendChild(coctailPrice);
+      fragment.appendChild(coctailTotalPrice);
+      // debugger
+      newTableRow.appendChild(fragment);
+    });
+
+    return newTableRow;
   }
 }
 
@@ -220,10 +244,10 @@ container.onclick = function (e) {
 
   let parent = e.target.parentElement;
   let coctail = parent.children[0].getAttribute('data-name');
+  // debugger
   list.getOrderedCoctails(coctail);
-  list.renderOrderedCoctails()
-  // nameColumn.appendChild(list.renderOrderedCoctails())
-  // priceColumn.appendChild(list.renderOrderedCoctails())
+  // list.renderOrderedCoctails();
+  // orderedRow.appendChild(list.renderOrderedCoctails())
 }
 
 // Order
