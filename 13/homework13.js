@@ -63,11 +63,7 @@ class CocktailsList {
 				(this.filters.cocktailValue === '' || item.name.indexOf(this.filters.cocktailValue) === 0)
 		});
 	}
-
-	// getOrderedCoctails() {
-	//   this.orderedList = this.li
-	// }
-
+	
 	render() {
 		this.applyFilters(); // change this.list
 		let fragment = document.createDocumentFragment();
@@ -170,10 +166,47 @@ class CocktailsList {
 
 		return newTableRow;
 	}
+
+	getCoctails() {
+		let ourPromise = Promise.resolve(this.list);
+
+		return ourPromise.then(function(resolve) {
+			resolve.forEach(function (coctail) {
+				list.add(new Cocktail(coctail.name, coctail.ingredients, coctail.isAlcohol, coctail.type));
+			});
+		});
+	}
+
+	renderPromise() {
+		let fragment = document.createDocumentFragment();
+
+		this.list.forEach(function (item) {
+			let cocktailItem = document.createElement('div');
+			let coctailName = document.createElement('strong');
+			let cocktailPrice = document.createElement('strong');
+			let button = document.createElement('button');
+
+			coctailName.innerText = item.name;
+			coctailName.setAttribute('data-name', item.name);
+			coctailName.className = 'cocktail';
+
+			cocktailPrice.innerText = item.price + '$';
+
+			button.innerText = 'Buy';
+			button.className = 'btn-order';
+
+			cocktailItem.className = 'cocktail-item';
+			cocktailItem.append(coctailName);
+			cocktailItem.append(cocktailPrice);
+			cocktailItem.append(button);
+
+			fragment.appendChild(cocktailItem);
+		})
+		return fragment;
+	}
 }
-
-
 let list = new CocktailsList();
+
 list.add(new Cocktail('margarita', [{
 	name: 'tequila',
 	price: 5
@@ -248,11 +281,11 @@ container.onclick = function (e) {
 	// debugger
 }
 
-function promiceHandler(obj) {
-	let promise = Promise(function(resolve, reject) {
-		
-	});
-	return promise;
-}
 
-getAllButton.addEventListener('click', promiceHandler);
+getAllButton.addEventListener('click', function() {
+	list.getCoctails();
+
+	listElement.innerHTML = '';
+	listElement.appendChild(list.renderPromise())
+});
+
