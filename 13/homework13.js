@@ -168,7 +168,16 @@ class CocktailsList {
 	}
 
 	getCoctails() {
-		let ourPromise = Promise.resolve(this.list);
+		let promiseList = this.list;
+		let ourPromise = new Promise(function(resolve, reject) {
+			if (promiseList.length) {
+				resolve(promiseList);
+			} else {
+				const reason = new Error('list is empty');
+				console.log(reason);
+				reject(reason);
+			}
+		});
 
 		return ourPromise.then(function(resolve) {
 			resolve.forEach(function (coctail) {
@@ -207,49 +216,49 @@ class CocktailsList {
 }
 let list = new CocktailsList();
 
-list.add(new Cocktail('margarita', [{
-	name: 'tequila',
-	price: 5
-}, {
-	name: 'lime',
-	price: 3
-}], true, 'long'))
-list.add(new Cocktail('old fashioned', [{
-	name: 'wiskey',
-	price: 6
-}, {
-	name: 'bitter',
-	price: 3
-}], true, 'shot'))
-list.add(new Cocktail('negroni', [{
-	name: 'wiskey',
-	price: 6
-}, {
-	name: 'bitter',
-	price: 3
-}], true, 'long'))
-list.add(new Cocktail('mojito', [{
-	name: 'wiskey',
-	price: 6
-}, {
-	name: 'bitter',
-	price: 3
-}], false, 'long'))
-list.add(new Cocktail('milk cocktails', [{
-	name: 'milk',
-	price: 5
-}, {
-	name: 'bananas',
-	price: 2
-}], false, 'long'));
+// list.add(new Cocktail('margarita', [{
+// 	name: 'tequila',
+// 	price: 5
+// }, {
+// 	name: 'lime',
+// 	price: 3
+// }], true, 'long'))
+// list.add(new Cocktail('old fashioned', [{
+// 	name: 'wiskey',
+// 	price: 6
+// }, {
+// 	name: 'bitter',
+// 	price: 3
+// }], true, 'shot'))
+// list.add(new Cocktail('negroni', [{
+// 	name: 'wiskey',
+// 	price: 6
+// }, {
+// 	name: 'bitter',
+// 	price: 3
+// }], true, 'long'))
+// list.add(new Cocktail('mojito', [{
+// 	name: 'wiskey',
+// 	price: 6
+// }, {
+// 	name: 'bitter',
+// 	price: 3
+// }], false, 'long'))
+// list.add(new Cocktail('milk cocktails', [{
+// 	name: 'milk',
+// 	price: 5
+// }, {
+// 	name: 'bananas',
+// 	price: 2
+// }], false, 'long'));
 
-list.add(new Cocktail('b52', [{
-	name: 'Coffee liqueur',
-	price: 20
-}, {
-	name: 'Irish cream',
-	price: 15
-}], true, 'shot'));
+// list.add(new Cocktail('b52', [{
+// 	name: 'Coffee liqueur',
+// 	price: 20
+// }, {
+// 	name: 'Irish cream',
+// 	price: 15
+// }], true, 'shot'));
 const showList = function () {
 
 	listElement.innerHTML = '';
@@ -283,9 +292,13 @@ container.onclick = function (e) {
 
 
 getAllButton.addEventListener('click', function() {
-	list.getCoctails();
-
 	listElement.innerHTML = '';
-	listElement.appendChild(list.renderPromise())
+
+	list.getCoctails().then(function () {
+		listElement.appendChild(list.renderPromise())
+	})
+	.catch(function () {
+		console.log('error');
+	});
 });
 
