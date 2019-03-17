@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            background: #e74c3c;
+            color: #fff;
+        }
+        .select{
+            display: inline-block;
+            vertical-align: top;
+            min-width: 150px;
+            max-width: 200px;
+            height: 40px;
+            margin-bottom: 1.2em;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            color: #fff;
+        }
+        .select .option{
+            position: relative;
+            padding: 12px 15px;
+            background: #c0392b;
+            border:1px solid #962d22;
+            border-width: 1px 0;
+            margin-bottom: -1px;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition:all .2s ease;
+        }
+        .select .option.active{
+            padding: 10px 25px 10px 15px;
+        }
+        .select .option.active:after{
+            content:'';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 8px 5px 0 5px;
+            border-color: #fff transparent transparent transparent;
+        }
+        .select .option:not(.active){
+            z-index: 10;
+        }
+        .select .option:not(.active):hover{
+            background: #fff;
+            color: #962d22;
+        }
+        .select .option.active:hover{
+            background:#bb4e42;
+        }
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <select>
+        <option value="">Option 1</option>
+        <option value="">Option 2</option>
+        <option value="">Option 3</option>
+    </select>
+    <div>
+        <div class="select">
+            <div class="option">Option 1</div>
+            <div class="option">Option 2</div>
+            <div class="option">Option 3</div>
+        </div>
+    </div>
+    <div>
+        <div class="select">
+            <div class="option">Option 1</div>
+            <div class="option">Option 2</div>
+            <div class="option">Option 3</div>
+        </div>
+    </div>
+    <script src="main.js" defer></script>
+</body>
+</html>
