@@ -252,13 +252,13 @@ let list = new CocktailsList();
 // 	price: 2
 // }], false, 'long'));
 
-// list.add(new Cocktail('b52', [{
-// 	name: 'Coffee liqueur',
-// 	price: 20
-// }, {
-// 	name: 'Irish cream',
-// 	price: 15
-// }], true, 'shot'));
+list.add(new Cocktail('b52', [{
+	name: 'Coffee liqueur',
+	price: 20
+}, {
+	name: 'Irish cream',
+	price: 15
+}], true, 'shot'));
 const showList = function () {
 
 	listElement.innerHTML = '';

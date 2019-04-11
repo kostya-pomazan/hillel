@@ -31,5 +31,6 @@ function createButton(label, width, height) {
 }
 
 let btn1 = createButton('test', 50, 50);
+console.log(btn1.getEvenstByType('click'))
 btn1.registerEvent('click', () => {});
 console.log(btn1.getEvenstByType('click'));
