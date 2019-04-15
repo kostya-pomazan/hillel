@@ -20,11 +20,10 @@ class App extends Component {
 		}
 		return new Promise(function (resolve, reject) {
 			let img = new Image(200, 300);
-			img.src = url;
-
+			
 			img.onload = () => {
 				setTimeout(() => {
-					resolve(img);
+					return resolve(img);
 				}, 1500);
 			}
 			img.onerror = () => {
@@ -32,13 +31,14 @@ class App extends Component {
 					reject(new Error(`Failed to load image's URL: ${url}`));
 				}, 1500);
 			}
+			img.src = url;
 		});
 	}
 
 	handleClick = () => {
 		const self = this;
 
-		this.getPromise('https://cdn.filestackcontent.com/G33P8iuoRuiYep5O6dt').then(function(img) {
+		this.getPromise('http://thecatapi.com/api/images/get?format=src&type=jpg&size=small').then(function(img) {
 			self.setState({
 				loaded: true,
 				content: "Loaded!",
@@ -47,7 +47,6 @@ class App extends Component {
 			console.log(self.state)
 			console.log(img)
 			console.log('IMAGE LOADED');
-			debugger;
 		}).catch(function (error) {
 			self.setState({
 				content: "Error Loading"
@@ -70,9 +69,6 @@ class App extends Component {
 					<button type="button" onClick={this.handleClick}>Load image</button>
 					<div>{this.state.content}</div>
 					<img src="loading.gif" width="50" height="50" alt="loading" style={{display: this.state.content === "Loading" ? 'block' : 'none' }}/>
-					{/* <ul>{this.state.images.map(item => (
-						<li key={item}>{item}</li>
-					))}</ul> */}
 				</header>
 			</div>
 		);
