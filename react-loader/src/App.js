@@ -18,7 +18,7 @@ class App extends Component {
 		if (!url) {
 			return Promise.reject();
 		}
-		let promise = new Promise(function (resolve, reject) {
+		return new Promise(function (resolve, reject) {
 			let img = new Image(200, 300);
 			img.src = url;
 
@@ -29,17 +29,16 @@ class App extends Component {
 			}
 			img.onerror = () => {
 				setTimeout(() => {
-					reject();
+					reject(new Error(`Failed to load image's URL: ${url}`));
 				}, 1500);
 			}
 		});
-		return promise;
 	}
 
 	handleClick = () => {
 		const self = this;
 
-		this.getPromise('https://cdn.filestackcontent.com/G33P8iuoRuinYep5O6dt').then(function(img) {
+		this.getPromise('https://cdn.filestackcontent.com/G33P8iuoRuiYep5O6dt').then(function(img) {
 			self.setState({
 				loaded: true,
 				content: "Loaded!",
@@ -53,8 +52,7 @@ class App extends Component {
 			self.setState({
 				content: "Error Loading"
 			});
-			console.log('Error');
-			// throw new Error(error);
+			console.error(error);
 		});
 
 		if (!this.state.loaded) {
