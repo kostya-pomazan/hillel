@@ -35,7 +35,12 @@ class App extends Component {
 						content: "Loaded!",
 						images: [...self.state.images, img]
 					});
-				}, 1000);
+				}, 1500);
+			}
+			img.onerror = () => {
+				setTimeout(() => {
+					reject();
+				}, 1500);
 			}
 		});
 
@@ -48,9 +53,15 @@ class App extends Component {
 	handleClick = () => {
 		let self = this;
 
-		this.getPromise('http://it-fun.one/images/reactjs.png').then(function(img) {
+		this.getPromise('https://cdn.filestackcontent.com/G33P8iuoRuinYep5O6dt').then(function(img) {
 			console.log(self.state)
-		});
+		}).catch(function (error) {
+			self.setState({
+				content: "Error Loading"
+			});
+			console.log('Error');
+			// throw new Error(error);
+		})
 
 		if (!this.state.loaded) {
 			this.setState({
