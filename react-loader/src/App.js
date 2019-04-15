@@ -18,9 +18,6 @@ class App extends Component {
 		if (!url) {
 			return Promise.reject();
 		}
-
-		const self = this;
-
 		let promise = new Promise(function (resolve, reject) {
 			let img = new Image(200, 300);
 			img.src = url;
@@ -28,13 +25,6 @@ class App extends Component {
 			img.onload = () => {
 				setTimeout(() => {
 					resolve(img);
-					console.log(img)
-				
-					self.setState({
-						loaded: true,
-						content: "Loaded!",
-						images: [...self.state.images, img]
-					});
 				}, 1500);
 			}
 			img.onerror = () => {
@@ -43,25 +33,29 @@ class App extends Component {
 				}, 1500);
 			}
 		});
-
-		return promise.then(function (img) {
-			console.log('IMAGE LOADED');
-			return img;
-		})
+		return promise;
 	}
 
 	handleClick = () => {
-		let self = this;
+		const self = this;
 
 		this.getPromise('https://cdn.filestackcontent.com/G33P8iuoRuinYep5O6dt').then(function(img) {
+			self.setState({
+				loaded: true,
+				content: "Loaded!",
+				images: [...self.state.images, img]
+			});
 			console.log(self.state)
+			console.log(img)
+			console.log('IMAGE LOADED');
+			debugger;
 		}).catch(function (error) {
 			self.setState({
 				content: "Error Loading"
 			});
 			console.log('Error');
 			// throw new Error(error);
-		})
+		});
 
 		if (!this.state.loaded) {
 			this.setState({
